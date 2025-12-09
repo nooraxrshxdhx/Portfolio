@@ -11,27 +11,27 @@ export const VRGame = {
       name: 'screenrecordingofvescaperoom.mp4',
       type: 'video',
       content: 'First-person gameplay footage',
-      url: '/Projectfile/ProjectVRGame/screenrecordingofvrescaperoom.mp4'
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectVRGame/screenrecordingofvrescaperoom.mp4`
     },
     {
       name: 'Game Design Document draft 2.docx',
       type: 'document',
       content: 'Mechanics and world building',
-      url: '/Projectfile/ProjectVRGame/GameDesignDocument.docx'
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectVRGame/GameDesignDocument.docx`
     },
     {
       name: 'Flowchart.png',
       type: 'image',
       content: 'Game logic flowchart',
-      url: '/Projectfile/ProjectVRGame/Flowchart.jpg'
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectVRGame/Flowchart.jpg`
     },
     // Add screenshots
     ...Array.from({ length: 9 }, (_, i) => ({
       name: `Screenshot_${i + 1}.png`,
       type: 'image',
       content: `In-game screenshot ${i + 1}`,
-      url: `/Projectfile/ProjectVRGame/Screenshot_${i + 1}.png`
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectVRGame/Screenshot_${i + 1}.png`
     }))
   ],
-  image: '/Projectfile/ProjectVRGame/Screenshot_1.png' 
+  image: `${process.env.PUBLIC_URL}/Projectfile/ProjectVRGame/Screenshot_1.png`
 };

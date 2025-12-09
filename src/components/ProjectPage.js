@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -9,6 +8,8 @@ import {
   Video as VideoIcon,
   Globe,
   AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import * as ProjectData from './projects';
 
@@ -23,7 +24,12 @@ export function ProjectPage() {
   const projects = Object.values(ProjectData);
   const project = projects.find((p) => String(p.id) === id);
 
-  const [selectedFile, setSelectedFile] = useState(project?.image || null);
+  // --- Hooks must be declared unconditionally ---
+  const imageFiles = project?.files?.filter((file) => file.type === 'image') || [];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(
+    project?.image || imageFiles[0]?.url || null
+  );
 
   if (!project) {
     return (
@@ -43,6 +49,21 @@ export function ProjectPage() {
     );
   }
 
+  // --- Image navigation functions ---
+  const nextImage = () => {
+    if (!imageFiles.length) return;
+    const nextIndex = (currentImageIndex + 1) % imageFiles.length;
+    setCurrentImageIndex(nextIndex);
+    setSelectedFile(imageFiles[nextIndex].url);
+  };
+
+  const prevImage = () => {
+    if (!imageFiles.length) return;
+    const prevIndex = (currentImageIndex - 1 + imageFiles.length) % imageFiles.length;
+    setCurrentImageIndex(prevIndex);
+    setSelectedFile(imageFiles[prevIndex].url);
+  };
+
   const getFileIcon = (type) => {
     switch (type) {
       case 'document':
@@ -60,8 +81,12 @@ export function ProjectPage() {
     if (!file?.url) return;
     if (file.type === 'document') {
       window.open(file.url, '_blank', 'noopener,noreferrer');
-    } else {
+    } else if (file.type === 'image' || file.type === 'video') {
       setSelectedFile(file.url);
+
+      // update currentImageIndex if it's an image
+      const index = imageFiles.findIndex((img) => img.url === file.url);
+      if (index >= 0) setCurrentImageIndex(index);
     }
   };
 
@@ -88,79 +113,46 @@ export function ProjectPage() {
           <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
         </div>
 
-        {/* HEADER SECTION */}
+        {/* Project Header */}
         <div className="bg-slate-900/80 border border-cyan-500/50 rounded-lg p-6 md:p-8 relative shadow-[0_0_15px_rgba(6,182,212,0.15)] overflow-hidden">
-          <div
-            className="absolute inset-0 pointer-events-none opacity-5"
-            style={{
-              backgroundImage:
-                'linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px)',
-              backgroundSize: '20px 20px',
-            }}
-          ></div>
-          <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyan-400"></div>
-          <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyan-400"></div>
-          <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyan-400"></div>
-          <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-cyan-400"></div>
-
-          <div className="relative z-10">
-            <h1 className="text-3xl md:text-5xl font-bold mb-8 tracking-wider bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
-              PROJECT: {project.title.toUpperCase()}
-            </h1>
-            <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-cyan-400 to-fuchsia-400 rounded-full mb-8"></div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm mb-8 font-mono">
-              <div className="p-3 bg-slate-950/50 border border-cyan-500/20 rounded">
-                <span className="text-slate-400 block text-xs mb-1">TYPE</span>
-                <span className="text-cyan-100">{project.category.toUpperCase()}</span>
-              </div>
-              <div className="p-3 bg-slate-950/50 border border-cyan-500/20 rounded">
-                <span className="text-slate-400 block text-xs mb-1">STATUS</span>
-                <span className="text-cyan-100">COMPLETED</span>
-              </div>
-              <div className="p-3 bg-slate-950/50 border border-cyan-500/20 rounded">
-                <span className="text-slate-400 block text-xs mb-1">YEAR</span>
-                <span className="text-cyan-100">{project.year || '2025'}</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-950/30 text-cyan-300 text-sm font-mono tracking-wide hover:bg-cyan-950/50 hover:border-cyan-400/60 transition-colors cursor-default"
-                >
-                  {tech.toUpperCase()}
-                </span>
-              ))}
-            </div>
-          </div>
+          <h1 className="text-3xl md:text-5xl font-bold mb-8 tracking-wider bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">
+            PROJECT: {project.title.toUpperCase()}
+          </h1>
+          <div className="h-1 w-24 md:w-32 bg-gradient-to-r from-cyan-400 to-fuchsia-400 rounded-full mb-8"></div>
         </div>
 
-                {/* CONTENT GRID */}
+        {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* LEFT COLUMN */}
+          {/* Left Column */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Visual Link Preview */}
+            {/* Visual Preview with Prev/Next Buttons */}
             <div className="bg-slate-900/80 border border-cyan-500/50 rounded-lg p-1 relative overflow-hidden group">
               <div className="bg-cyan-950/30 p-2 border-b border-cyan-500/20 flex justify-between items-center">
                 <h3 className="text-cyan-400 font-mono tracking-widest text-sm uppercase flex items-center gap-2">
                   <Globe className="w-4 h-4" />
                   {selectedFile ? selectedFile.split('/').pop() : 'Visual_Link.png'}
                 </h3>
+                {/* Prev/Next Buttons */}
+                {imageFiles.length > 1 && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={prevImage}
+                      className="p-1 bg-slate-800/50 rounded hover:bg-cyan-950/50 transition-colors"
+                    >
+                      <ChevronLeft className="w-5 h-5 text-cyan-400" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="p-1 bg-slate-800/50 rounded hover:bg-cyan-950/50 transition-colors"
+                    >
+                      <ChevronRight className="w-5 h-5 text-cyan-400" />
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="p-4 bg-black/40 min-h-[300px] md:min-h-[400px] flex items-center justify-center">
                 <div className="relative w-full h-full rounded overflow-hidden border border-slate-700/50">
-                  <div
-                    className="absolute inset-0 pointer-events-none z-10 opacity-10 group-hover:opacity-20 transition-opacity duration-500"
-                    style={{
-                      background:
-                        'linear-gradient(transparent 50%, rgba(6, 182, 212, 0.1) 50%)',
-                      backgroundSize: '100% 4px',
-                    }}
-                  ></div>
-
                   {selectedFile ? (
                     isVideo(selectedFile) ? (
                       <video
@@ -195,7 +187,7 @@ export function ProjectPage() {
               </div>
             </div>
 
-            {/* PROJECT DETAILS */}
+            {/* Project Details */}
             <div className="bg-slate-900/80 border border-cyan-500/50 rounded-lg p-1 relative">
               <div className="bg-cyan-950/30 p-2 border-b border-cyan-500/20 mb-2">
                 <h3 className="text-cyan-400 font-mono tracking-widest text-sm uppercase">
@@ -210,7 +202,7 @@ export function ProjectPage() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Files & Metadata */}
+          {/* Right Column: Files */}
           <div className="space-y-6">
             <div className="bg-slate-900/80 border border-fuchsia-500/30 rounded-lg p-1 relative sticky top-24">
               <div className="bg-fuchsia-950/20 p-2 border-b border-fuchsia-500/20 mb-2">
@@ -219,7 +211,7 @@ export function ProjectPage() {
                 </h3>
               </div>
               <div className="p-4 space-y-3">
-                {Array.isArray(project.files) && project.files.length > 0 ? (
+                {project.files.length > 0 ? (
                   project.files.map((file, idx) => {
                     const Icon = getFileIcon(file.type);
                     return (
@@ -249,12 +241,6 @@ export function ProjectPage() {
                 ) : (
                   <div className="text-cyan-200/70 text-sm">No files attached.</div>
                 )}
-              </div>
-
-              <div className="p-2 border-t border-fuchsia-500/20 bg-fuchsia-950/10 text-center">
-                <span className="text-[10px] text-fuchsia-500/50 font-mono uppercase tracking-widest">
-                  SECURE DATA TRANSMISSION
-                </span>
               </div>
             </div>
           </div>

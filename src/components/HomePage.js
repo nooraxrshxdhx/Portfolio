@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, Code, Palette, Mail, Linkedin, Instagram, Github, Heart } from 'lucide-react';
+import { Sparkles, Code, Palette, Mail } from 'lucide-react';
 import '@google/model-viewer';
 export function HomePage() {
   const navigate = useNavigate();

@@ -64,11 +64,12 @@ export function AboutPage() {
             <div className="relative p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               <div className="flex flex-col items-center text-center">
               <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-cyan-400 to-fuchsia-400 p-1 mb-4">
-                <img
-                  src="/ProfileImg.jpg"  
-                  alt="Profile"
-                  className="w-full h-full rounded-full object-cover"
-               />
+<img
+  src={`${process.env.PUBLIC_URL}/ProfileImg.jpg`}
+  alt="Profile"
+  className="w-full h-full rounded-full object-cover"
+/>
+
               </div>
                 <h2 className="text-cyan-400 tracking-wider text-lg md:text-xl mb-2">DEVELOPER PROFILE</h2>
                 <p className="text-cyan-100/70 text-xs md:text-sm">Full Stack Developer & UI Designer</p>

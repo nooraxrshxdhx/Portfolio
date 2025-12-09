@@ -1,4 +1,3 @@
-
 export const HackerRankReactCert = {
   id: 5,
   title: 'HackerRank Frontend Developer (React)',
@@ -11,13 +10,13 @@ export const HackerRankReactCert = {
       name: 'Certificate.pdf',
       type: 'document',
       content: 'Verified credential document',
-      url: '/Projectfile/ProjectCertificates/frontend_developer_react certificate.pdf'
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectCertificates/frontend_developer_react certificate.pdf`
     },
     {
       name: 'CertificateImg.png',
       type: 'image',
       content: 'Screenshot of the certificate',
-      url: '/Projectfile/ProjectCertificates/CertificateImg.png'
+      url: `${process.env.PUBLIC_URL}/Projectfile/ProjectCertificates/CertificateImg.png`
     },
     {
       name: 'Verification Link',
@@ -31,7 +30,6 @@ export const HackerRankReactCert = {
       content: 'Embedded certificate view',
       url: 'https://www.hackerrank.com/certificates/iframe/bf1ec010e252'
     },
- 
   ],
-  image: '/Projectfile/ProjectCertificates/CertificateImg.png'
+  image: `${process.env.PUBLIC_URL}/Projectfile/ProjectCertificates/CertificateImg.png`
 };
