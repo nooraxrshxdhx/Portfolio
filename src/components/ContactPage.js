@@ -9,17 +9,7 @@ export function ContactPage() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    //service_ald2287
-    // Reset form after animation
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitted(false);
-    }, 3000);
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -28,33 +18,53 @@ export function ContactPage() {
     }));
   };
 
-  const socialLinks = [
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  {
-    name: 'LinkedIn',
-    icon: Linkedin,
-    url: 'https://www.linkedin.com/in/arshadha-noor-mohamed-8196ba339/',
-    color: 'from-blue-500 to-blue-600',
-    hoverColor: 'hover:border-blue-400',
-    handle: 'arshadha-noor-mohamed'
-  },
-  {
-    name: 'Instagram',
-    icon: Instagram,
-    url: 'https://www.instagram.com/xrshxdhx.__/',
-    color: 'from-pink-500 to-purple-600',
-    hoverColor: 'hover:border-pink-400',
-    handle: 'xrshxdhx.__'
-  },
-  {
-    name: 'Email',
-    icon: Mail,
-    url: 'mailto:arshadhanoormohamed@gmail.com',
-    color: 'from-cyan-500 to-teal-600',
-    hoverColor: 'hover:border-cyan-400',
-    handle: 'arshadhanoormohamed@gmail.com'
-  }
-];
+    const form = e.target;
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    if (response.ok) {
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } else {
+      alert("Something went wrong. Please try again.");
+    }
+
+    setIsSubmitting(false);
+  };
+
+  const socialLinks = [
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      url: 'https://www.linkedin.com/in/arshadha-noor-mohamed-8196ba339/',
+      color: 'from-blue-500 to-blue-600',
+      hoverColor: 'hover:border-blue-400',
+      handle: 'arshadha-noor-mohamed'
+    },
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      url: 'https://www.instagram.com/xrshxdhx.__/',
+      color: 'from-pink-500 to-purple-600',
+      hoverColor: 'hover:border-pink-400',
+      handle: 'xrshxdhx.__'
+    },
+    {
+      name: 'Email',
+      icon: Mail,
+      url: 'mailto:arshadhanoormohamed@gmail.com',
+      color: 'from-cyan-500 to-teal-600',
+      hoverColor: 'hover:border-cyan-400',
+      handle: 'arshadhanoormohamed@gmail.com'
+    }
+  ];
 
   return (
     <div className="container mx-auto px-2 md:px-4 py-6 md:py-12">
@@ -69,7 +79,6 @@ export function ContactPage() {
             Contact Me
           </h1>
           <div className="h-1 w-24 md:w-32 mx-auto bg-gradient-to-r from-cyan-400 to-fuchsia-400 rounded-full"></div>
-
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -81,16 +90,16 @@ export function ContactPage() {
           >
             <div className="relative">
               <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-cyan-500/20 to-fuchsia-500/20 rounded-lg blur-lg"></div>
-              
               <div className="relative bg-slate-800/80 backdrop-blur-sm border-2 border-cyan-400/50 rounded-lg p-4 md:p-8">
                 <h2 className="text-xl md:text-2xl mb-4 md:mb-6 text-cyan-100">Send Message</h2>
-                
                 <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                  {/* Hidden Web3Forms fields */}
+                  <input type="hidden" name="access_key" value="8acf85fe-3b9d-4bf8-ad7a-ea22ab6a3808" />
+                  <input type="hidden" name="redirect" value={`${window.location.origin}/thank-you`} />
+
                   {/* Name field */}
                   <div>
-                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">
-                      Name
-                    </label>
+                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">Name</label>
                     <input
                       type="text"
                       name="name"
@@ -104,9 +113,7 @@ export function ContactPage() {
 
                   {/* Email field */}
                   <div>
-                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">
-                      Email
-                    </label>
+                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">Email</label>
                     <input
                       type="email"
                       name="email"
@@ -120,9 +127,7 @@ export function ContactPage() {
 
                   {/* Message field */}
                   <div>
-                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">
-                      Message
-                    </label>
+                    <label className="block text-cyan-300 mb-2 text-xs md:text-sm">Message</label>
                     <textarea
                       name="message"
                       value={formData.message}
@@ -139,7 +144,7 @@ export function ContactPage() {
                     type="submit"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    disabled={isSubmitted}
+                    disabled={isSubmitting || isSubmitted}
                     className="w-full bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white py-2.5 md:py-3 rounded-lg flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
                   >
                     {isSubmitted ? (
@@ -150,33 +155,30 @@ export function ContactPage() {
                     ) : (
                       <>
                         <Send className="w-4 h-4 md:w-5 md:h-5" />
-                        Transmit Message
+                        {isSubmitting ? "Sending..." : "Transmit Message"}
                       </>
                     )}
                   </motion.button>
                 </form>
 
-                {/* Tech decoration */}
-
+                {/* Success message */}
+                <AnimatePresence>
+                  {isSubmitted && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-4 bg-green-500/20 border border-green-400/50 rounded-lg p-4"
+                    >
+                      <div className="flex items-center gap-2 text-green-400">
+                        <CheckCircle className="w-5 h-5" />
+                        <span>Message successfully transmitted! I'll get back to you soon.</span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
-
-            {/* Success message */}
-            <AnimatePresence>
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="mt-4 bg-green-500/20 border border-green-400/50 rounded-lg p-4"
-                >
-                  <div className="flex items-center gap-2 text-green-400">
-                    <CheckCircle className="w-5 h-5" />
-                    <span>Message successfully transmitted! I'll get back to you soon.</span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
 
           {/* Social Media Section */}
@@ -187,10 +189,8 @@ export function ContactPage() {
           >
             <div className="relative h-full">
               <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-br from-fuchsia-500/20 to-cyan-500/20 rounded-lg blur-lg"></div>
-              
               <div className="relative bg-slate-800/80 backdrop-blur-sm border-2 border-fuchsia-400/50 rounded-lg p-4 md:p-8 h-full flex flex-col">
                 <h2 className="text-xl md:text-2xl mb-4 md:mb-6 text-cyan-100">Connect</h2>
-                
                 <div className="space-y-3 md:space-y-4 flex-1">
                   {socialLinks.map((social, idx) => {
                     const IconComponent = social.icon;
