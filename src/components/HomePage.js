@@ -164,7 +164,7 @@ export function HomePage() {
                      
                   {/* 3D Model Container link: "https://models.readyplayer.me/6926ff38fb99478e41adf1a5.glb" */}
                     
-                  <div className="relative flex-1 min-h-[300px] md:min-h-[400px] bg-slate-900/50 rounded-lg border border-cyan-400/20 overflow-hidden">
+                  <div className="relative flex-1 min-h-[300px] md:min-h-[400px] bg-slate-900/50 rounded-lg border border-cyan-400/20 overflow-hidden flex items-center justify-center">
                     {/* Holographic grid background */}
                     <div className="absolute inset-0"
                       style={{
@@ -176,12 +176,13 @@ export function HomePage() {
                       }}
                       
                     >
-                      <model-viewer
-                        src="https://models.readyplayer.me/6926ff38fb99478e41adf1a5.glb"
-                        alt="3D avatar"
-                        auto-rotate
-                        style={{ width: '400px', height: '400px' }}
-                     ></model-viewer>
+  <model-viewer
+    src="https://models.readyplayer.me/6926ff38fb99478e41adf1a5.glb"
+    alt="3D avatar"
+    auto-rotate
+
+    style={{ width: '100%', height: '100%', maxWidth: '400px', maxHeight: '400px' }}
+  ></model-viewer>
 
                     </div>
 

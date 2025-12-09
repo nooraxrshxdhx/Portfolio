@@ -118,24 +118,25 @@ export function Navigation() {
                 </div>
 
                 {/* Navigation Links */}
-                <div className="flex-1 p-4 space-y-3">
-                  {links.map((link, idx) => (
-                    <NavLink
-                      key={link.path}
-                      to={link.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={({ isActive }) =>
-                        `relative px-4 py-3 rounded-lg border-2 transition-all duration-300 ${
-                          isActive
-                            ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 border-fuchsia-400 shadow-lg shadow-fuchsia-500/50'
-                            : 'bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 border-cyan-400/50'
-                        }`
-                      }
-                    >
-                      <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
-                    </NavLink>
-                  ))}
-                </div>
+<div className="flex-1 flex flex-col p-4 space-y-3">
+  {links.map((link, idx) => (
+    <NavLink
+      key={link.path}
+      to={link.path}
+      onClick={() => setIsMobileMenuOpen(false)}
+      className={({ isActive }) =>
+        `relative px-4 py-3 rounded-lg border-2 transition-all duration-300 ${
+          isActive
+            ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 border-fuchsia-400 shadow-lg shadow-fuchsia-500/50'
+            : 'bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 border-cyan-400/50'
+        }`
+      }
+    >
+      <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
+    </NavLink>
+  ))}
+</div>
+
 
                 {/* Footer */}
                 <div className="p-4 border-t border-cyan-400/30">
