@@ -92,7 +92,7 @@ export function ProjectPage() {
 
   const isVideo = (url) => typeof url === 'string' && url.toLowerCase().endsWith('.mp4');
   const isImage = (url) =>
-    typeof url === 'string' && /\.(png|jpg|jpeg|gif|webp)$/i.test(url);
+    typeof url === 'string' && /\.(png|PNG|jpg|jpeg|gif|webp)$/i.test(url);
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
