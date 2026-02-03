@@ -8,7 +8,9 @@ const projects = [
   ProjectData.BrandIdentity,
   ProjectData.EcommerceWireframe,
   ProjectData.VRGame,
-  ProjectData.HackerRankReactCert
+  ProjectData.HackerRankReactCert,
+  ProjectData.GPAcalculator,
+  ProjectData.LearnatRP
 ];
 
 const categories = ['All', 'Design', 'Development', 'Certification'];

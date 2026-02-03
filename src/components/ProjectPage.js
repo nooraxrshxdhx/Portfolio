@@ -24,7 +24,6 @@ export function ProjectPage() {
   const projects = Object.values(ProjectData);
   const project = projects.find((p) => String(p.id) === id);
 
-  // --- Hooks must be declared unconditionally ---
   const imageFiles = project?.files?.filter((file) => file.type === 'image') || [];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedFile, setSelectedFile] = useState(

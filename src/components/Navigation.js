@@ -6,7 +6,7 @@ import { Logo } from './Logo';
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const currentYear = new Date().getFullYear();
   const links = [
     { path: '/', label: 'HOME' },
     { path: '/about', label: 'ABOUT' },
@@ -141,7 +141,7 @@ export function Navigation() {
                 {/* Footer */}
                 <div className="p-4 border-t border-cyan-400/30">
                   <div className="text-center text-cyan-400/60 text-xs">
-                    &copy; 2024 Arshadha's Portfolio
+                    &copy; {currentYear} Arshadha's Portfolio
                   </div>
                 </div>
 
