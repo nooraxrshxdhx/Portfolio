@@ -68,7 +68,7 @@ export const FLOW = {
     ]
   },
   tech_details: {
-    text: "My tech focuses on responsive UI, animated micro-interactions, and clean component structure to keep the experience fast and smooth.",
+    text: "Tech focuses on responsive UI, animated micro-interactions, and clean component structure to keep the experience fast and smooth.",
     options: [
       { text: "Go to Portfolio", type: "nav", target: "/portfolio", icon: "palette" },
       { text: "Get in touch", type: "node", target: "contact_intro", icon: "mail" },

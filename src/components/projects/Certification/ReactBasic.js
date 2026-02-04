@@ -4,7 +4,7 @@ export const ReactBasic = {
   category: 'Certification',
   year: '2025',
   description: 'HackerRank React (Basic) certification demonstrating fundamental React knowledge and skills.',
-  technologies: ['React', 'JavaScript', 'HTML', 'CSS'],
+  technologies: ['React', 'JavaScript', 'CSS3'],
   files: [
     {
       name: 'Certificate',
