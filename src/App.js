@@ -12,7 +12,7 @@ import { StarfieldBackground } from './components/layout/StarfieldBackground';
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-slate-950 relative overflow-hidden flex flex-col">
+      <div className="min-h-screen bg-slate-950 relative overflow-x-hidden flex flex-col">
         <StarfieldBackground />
 
         <Navigation />

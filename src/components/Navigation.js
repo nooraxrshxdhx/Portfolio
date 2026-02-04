@@ -85,14 +85,14 @@ export function Navigation() {
       {/* Mobile Sidebar Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <>
+          <div className="md:hidden fixed inset-0 z-[101]">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100]"
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
             />
 
             {/* Sidebar */}
@@ -101,7 +101,7 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 right-0 bottom-0 w-72 sm:w-80 bg-slate-900 border-l-2 border-cyan-400/50 z-[101] overflow-hidden"
+              className="absolute top-0 right-0 h-[100dvh] w-72 sm:w-80 bg-slate-900 border-l-2 border-cyan-400/50 overflow-hidden"
             >
               <div className="absolute inset-0 opacity-10"
                 style={{
@@ -132,25 +132,24 @@ export function Navigation() {
                 </div>
 
                 {/* Navigation Links */}
-<div className="flex-1 flex flex-col p-4 space-y-3">
-  {links.map((link, idx) => (
-    <NavLink
-      key={link.path}
-      to={link.path}
-      onClick={() => setIsMobileMenuOpen(false)}
-      className={({ isActive }) =>
-        `relative px-4 py-3 rounded-lg border-2 transition-all duration-300 ${
-          isActive
-            ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 border-fuchsia-400 shadow-lg shadow-fuchsia-500/50'
-            : 'bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 border-cyan-400/50'
-        }`
-      }
-    >
-      <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
-    </NavLink>
-  ))}
-</div>
-
+                <div className="flex-1 flex flex-col p-4 space-y-3">
+                  {links.map((link) => (
+                    <NavLink
+                      key={link.path}
+                      to={link.path}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={({ isActive }) =>
+                        `relative px-4 py-3 rounded-lg border-2 transition-all duration-300 ${
+                          isActive
+                            ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500 border-fuchsia-400 shadow-lg shadow-fuchsia-500/50'
+                            : 'bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 border-cyan-400/50'
+                        }`
+                      }
+                    >
+                      <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
+                    </NavLink>
+                  ))}
+                </div>
 
                 {/* Footer */}
                 <div className="p-4 border-t border-cyan-400/30">
@@ -163,7 +162,7 @@ export function Navigation() {
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-cyan-400"></div>
               </div>
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
     </nav>
