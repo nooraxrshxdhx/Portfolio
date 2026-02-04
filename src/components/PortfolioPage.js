@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Folder } from 'lucide-react';
 import * as ProjectData from './projects';
 
@@ -19,8 +19,22 @@ const projects = [
 const categories = ['All', 'Design', 'Development', 'Certification'];
 
 export function PortfolioPage() {
+  const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [hoveredProjectId, setHoveredProjectId] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const rawCategory = params.get('category');
+    const normalized = rawCategory?.toLowerCase();
+    const mappedCategory =
+      normalized === 'certificates' || normalized === 'certifications'
+        ? 'Certification'
+        : rawCategory;
+    if (mappedCategory && categories.includes(mappedCategory)) {
+      setSelectedCategory(mappedCategory);
+    }
+  }, [location.search]);
 
   const filteredProjects = selectedCategory === 'All'
     ? projects

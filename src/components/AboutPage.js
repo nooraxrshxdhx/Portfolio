@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Code, Palette, Database, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Code, Palette, Database, BarChart3, BadgeCheck } from 'lucide-react';
 
 const skillCategories = [
   {
@@ -73,6 +74,15 @@ export function AboutPage() {
               </div>
                 <h2 className="text-cyan-400 tracking-wider text-lg md:text-xl mb-2">DEVELOPER PROFILE</h2>
                 <p className="text-cyan-100/70 text-xs md:text-sm">Full Stack Developer & UI Designer</p>
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                  <Link
+                    to="/portfolio?category=Certification"
+                    className="relative px-4 py-2 rounded-full border-2 transition-all duration-300 bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 border-cyan-400/50 hover:border-fuchsia-400/80 flex items-center justify-center gap-2 group text-cyan-100 text-xs md:text-sm font-medium"
+                  >
+                    <BadgeCheck className="w-4 h-4 text-white group-hover:animate-bounce" />
+                    <span className="relative z-10 tracking-wider">VIEW CERTIFICATES</span>
+                  </Link>
+                </div>
               </div>
 
               <div className="md:col-span-2 flex flex-col justify-center">

@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Logo } from './Logo';
+import { ResumeButton } from './ResumeButton';
 
 export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -96,6 +97,10 @@ export function Navigation() {
                   <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
                 </NavLink>
               ))}
+              <ResumeButton
+                onClose={() => setIsMobileMenuOpen(false)}
+                className="w-full px-4 py-3 rounded-lg"
+              />
             </div>
 
             {/* Footer */}
@@ -154,6 +159,7 @@ export function Navigation() {
                     <span className="relative z-10 tracking-wider text-cyan-100 text-sm">{link.label}</span>
                   </NavLink>
                 ))}
+                <ResumeButton className="px-6 py-2 rounded-full" />
               </div>
 
               {/* Mobile Menu Button */}
