@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Logo } from './Logo';
 
 export function Navigation() {
@@ -13,6 +13,20 @@ export function Navigation() {
     { path: '/portfolio', label: 'PORTFOLIO' },
     { path: '/contact', label: 'CONTACT' },
   ];
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const previousOverflow = document.body.style.overflow;
+      const previousHtmlOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = previousOverflow;
+        document.documentElement.style.overflow = previousHtmlOverflow;
+      };
+    }
+  }, [isMobileMenuOpen]);
 
   return (
     <nav className="relative z-50 py-2 md:py-4 bg-slate-900/80 backdrop-blur-sm border-b border-cyan-400/30">
