@@ -10,7 +10,6 @@ import {
   AlertTriangle,
   ChevronLeft,
   ChevronRight,
-  Calendar,
   Briefcase,
   Code2,
   ExternalLink,
