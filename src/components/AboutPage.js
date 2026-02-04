@@ -83,7 +83,7 @@ export function AboutPage() {
                   className="text-cyan-100/80 leading-relaxed space-y-4"
                 >
               <p className="text-sm md:text-base">
-                  I am a Singapore-based student studying Design and Development, with experience building apps, websites, and simple games through school projects. I enjoy working on the technical side of development, especially when it involves problem-solving, logic, and bringing an idea from concept to something functional.
+                  I am a Singapore-based student studying Design and Development, with experience in building apps, websites, and simple games through school projects. I enjoy working on the technical side of development, especially when it involves problem-solving, logic, and bringing an idea from concept to something functional.
               </p>
               <p className="text-sm md:text-base">
                   I am particularly interested in game development and interactive applications, as I enjoy how they combine structure, creativity, and user experience. While much of my work so far has been guided by academic briefs, these projects have helped me develop a foundation in development workflows, debugging, and translating requirements into working features.
