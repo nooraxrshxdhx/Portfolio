@@ -16,7 +16,7 @@ export function Navigation() {
 
   return (
     <nav className="relative z-50 py-2 md:py-4 bg-slate-900/80 backdrop-blur-sm border-b border-cyan-400/30">
-      <div className="w-full px-0">
+      <div className="w-full px-2 sm:px-4">
         {/* Main navbar rectangle */}
         <div className="relative px-3 py-3 md:px-8 md:py-5">
           <div className="flex items-center justify-between">
@@ -87,7 +87,7 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 right-0 bottom-0 w-64 bg-slate-900 border-l-2 border-cyan-400/50 z-[101] overflow-hidden"
+              className="md:hidden fixed top-0 right-0 bottom-0 w-72 sm:w-80 bg-slate-900 border-l-2 border-cyan-400/50 z-[101] overflow-hidden"
             >
               <div className="absolute inset-0 opacity-10"
                 style={{
