@@ -1,5 +1,5 @@
 export const HackerRankReactCert = {
-  id: 5,
+  id: 2,
   title: 'HackerRank Frontend Developer (React)',
   category: 'Certification',
   year: '2025',

@@ -3,7 +3,7 @@ export const LearnatRP = {
   title: 'Learn@RP course app Wireframe Design',
   category: 'Design',
   year: '2026',
-    description: ' something',
+    description: 'Learn@RP is a course portal concept I designed in Figma, aimed at helping students access and learn from video-based courses. For this project, I created a full UI kit, including a color palette, typography, form elements, buttons, navigation bars, tabs, card components, toggle switches, and spinners. The UI kit was designed to be consistent and flexible, so it could support multiple pages and interactive features.\n\nI also designed high-fidelity wireframes and prototyped the app to be fully interactive. The prototype includes vertical and horizontal scrolling, filter tabs on the library page, a search page with a keyboard overlay, and functional components like the toggle switch and spinner. The goal was to explore how students could browse and engage with courses efficiently while keeping the interface clean and visually approachable.\n\nThis project helped me practice creating a complete design system, combining UI components with interactive prototyping, and thinking through user flows for a learning platform. It also gave me experience balancing functionality with a polished visual design.',
     technologies: ['Figma', 'UI/UX Design', 'Prototyping'],
      
     files: [

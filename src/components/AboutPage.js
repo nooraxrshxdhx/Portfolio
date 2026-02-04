@@ -83,10 +83,13 @@ export function AboutPage() {
                   className="text-cyan-100/80 leading-relaxed space-y-4"
                 >
               <p className="text-sm md:text-base">
-                  I'm a student based in Singapore, currently studying Design and Development. My interests span across building apps, websites, and games, where I enjoy combining creativity with technical problem‑solving. As an avid gamer, I’m especially passionate about game development and eager to deepen my knowledge in this field.
+                  I am a Singapore-based student studying Design and Development, with experience building apps, websites, and simple games through school projects. I enjoy working on the technical side of development, especially when it involves problem-solving, logic, and bringing an idea from concept to something functional.
               </p>
               <p className="text-sm md:text-base">
-                  Beyond coding, I explore digital design to bring ideas to life with engaging visuals and user‑friendly experiences. I would describe myself as laid‑back and adaptable, yet motivated to take on new opportunities and challenges. I’m committed to learning continuously and growing both as a developer and designer.
+                  I am particularly interested in game development and interactive applications, as I enjoy how they combine structure, creativity, and user experience. While much of my work so far has been guided by academic briefs, these projects have helped me develop a foundation in development workflows, debugging, and translating requirements into working features.
+              </p>
+              <p className="text-sm md:text-base">
+                  Alongside development, I explore digital design to improve how users interact with what I build. I see myself as adaptable and open to learning, and I am still in the process of refining my strengths and direction. Through continued practice and hands-on projects, I aim to grow into a more confident and capable developer.
               </p>
                 </motion.div>
               </div>
@@ -139,8 +142,6 @@ export function AboutPage() {
                 transition={{ duration: 0.5, delay: 0.8 + categoryIndex * 0.1 }}
                 className="relative group"
               >
-                <div className={`absolute -inset-1 ${colors.glow} rounded-lg blur group-hover:blur-md transition-all duration-300`}></div>
-                
                 <div className="relative bg-slate-800/80 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-6 hover:border-fuchsia-400/50 transition-all duration-300">
                   {/* Header */}
                   <div className="flex items-center gap-3 mb-4">

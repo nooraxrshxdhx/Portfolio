@@ -4,7 +4,7 @@ export const EcommerceWireframe = {
   category: 'Design',
   year: '2025',
   description:
-    'High-Fidelity wireframe and prototype for a sustainable fashion e-commerce website. The design emphasizes on showing a Green theme, brand story, and user-friendly shopping experience with intuitive navigation and clear call-to-actions.',
+    'For this project, I created high-fidelity wireframes and a prototype for a sustainable fashion e-commerce website. I wanted to show that sustainable clothing can be vibrant and fun, not just plain or serious. I focused on bringing the brand’s story and ethics into the design, highlighting sustainability through visuals and layout. The interface is clean and easy to navigate, letting users explore products and learn about the brand without feeling overwhelmed. Working on this project helped me practice using color, typography, and layout to communicate personality and values, while keeping the experience approachable and engaging.',
   technologies: ['Figma', 'UX Research', 'Prototyping'],
   files: [
     {

@@ -10,13 +10,17 @@ const projects = [
   ProjectData.VRGame,
   ProjectData.HackerRankReactCert,
   ProjectData.GPAcalculator,
-  ProjectData.LearnatRP
+  ProjectData.LearnatRP,
+  ProjectData.StudySpot,
+  ProjectData.PlaylistWebsite,
+  ProjectData.ReactBasic
 ];
 
 const categories = ['All', 'Design', 'Development', 'Certification'];
 
 export function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [hoveredProjectId, setHoveredProjectId] = useState(null);
 
   const filteredProjects = selectedCategory === 'All'
     ? projects
@@ -61,42 +65,63 @@ export function PortfolioPage() {
         <div className="relative">
           {/* Project files grid */}
           <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {filteredProjects.map((project, index) => (
-              <Link to={`/project/${project.id}`} key={project.id}>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, rotateY: 5 }}
-                  className="cursor-pointer group perspective-1000 h-full"
-                >
-                  <div className="relative h-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-400/50 rounded-lg p-4 md:p-6 hover:border-fuchsia-400 transition-all duration-300 transform-gpu"
-                    style={{
-                      transformStyle: 'preserve-3d'
-                    }}
+            {filteredProjects.map((project, index) => {
+              const defaultImage = project.image || project.files?.find(f => f.type === 'image')?.url || null;
+              return (
+                <Link to={`/project/${project.id}`} key={project.id}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05, rotateY: 5 }}
+                    className="cursor-pointer group perspective-1000 h-full"
+                    onMouseEnter={() => setHoveredProjectId(project.id)}
+                    onMouseLeave={() => setHoveredProjectId(null)}
                   >
-                    {/* File folder icon */}
-                    <div className="flex flex-col items-center mb-4">
-                      <Folder className="w-16 h-16 md:w-20 md:h-20 text-cyan-400 group-hover:text-fuchsia-400 transition-colors duration-300" strokeWidth={1.5} />
-                      <div className="mt-2 px-2 md:px-3 py-1 bg-cyan-950/50 border border-cyan-400/50 rounded text-xs text-cyan-300">
-                        {project.category}
+                    <div className="relative h-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-400/50 rounded-lg p-4 md:p-6 hover:border-fuchsia-400 transition-all duration-300 transform-gpu overflow-hidden"
+                      style={{
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      {/* Default image - only visible when this card is hovered (state, not CSS) */}
+                      {defaultImage && (
+                        <div
+                          className="absolute inset-0 transition-opacity duration-300 pointer-events-none z-0"
+                          style={{ opacity: hoveredProjectId === project.id ? 1 : 0 }}
+                        >
+                          <img
+                            src={defaultImage}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+
+                      {/* Card content - hidden only when this card is hovered */}
+                      <div
+                        className="relative z-10 transition-opacity duration-300"
+                        style={{ opacity: defaultImage && hoveredProjectId === project.id ? 0 : 1 }}
+                      >
+                        <div className="flex flex-col items-center mb-4">
+                          <Folder className="w-16 h-16 md:w-20 md:h-20 text-cyan-400 group-hover:text-fuchsia-400 transition-colors duration-300" strokeWidth={1.5} />
+                          <div className="mt-2 px-2 md:px-3 py-1 bg-cyan-950/50 border border-cyan-400/50 rounded text-xs text-cyan-300">
+                            {project.category}
+                          </div>
+                        </div>
+
+                        <h3 className="text-center text-cyan-100 mb-2 text-sm md:text-base">{project.title}</h3>
+                        <div className="text-center text-cyan-400/60 text-xs md:text-sm">
+                          {project.files.length} files
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Project title */}
-                    <h3 className="text-center text-cyan-100 mb-2 text-sm md:text-base">{project.title}</h3>
-                    
-                    {/* File count */}
-                    <div className="text-center text-cyan-400/60 text-xs md:text-sm">
-                      {project.files.length} files
+                      {/* Holographic effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-fuchsia-500/0 group-hover:from-cyan-500/10 group-hover:to-fuchsia-500/10 rounded-lg transition-all duration-300 pointer-events-none z-[1]"></div>
                     </div>
-
-                    {/* Holographic effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-fuchsia-500/0 group-hover:from-cyan-500/10 group-hover:to-fuchsia-500/10 rounded-lg transition-all duration-300 pointer-events-none"></div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
+                  </motion.div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ export const BrandIdentity = {
   category: 'Design',
   year: '2025',
   description:
-    'Complete brand identity package including logo design, color palette, for a personal brand.',
+    'For this project, I created a personal brand identity package, including a logo, color palette, typography, and custom UI assets, to showcase my digital design skills. I chose bright neon colors simply because I enjoy them, experimenting with cyan, magenta, and lime green on dark backgrounds. The typography mixes a glowing-style font with a more readable script font, and I designed custom icons for contact methods, skills, and navigation. I explored AI-assisted tools in Photoshop and Illustrator to add texture and polish to my assets, while keeping everything original. The project was a chance to practice combining branding, color, and interface design, and I learned the importance of consistency and thoughtful color choices. While the project isn’t perfect, it helped me improve my workflow, experiment with new tools, and understand how to make my designs feel cohesive.',
   technologies: ['Illustrator', 'Photoshop', 'Wix'],
   files: [
     {
