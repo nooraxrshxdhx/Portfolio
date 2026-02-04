@@ -1,0 +1,28 @@
+/* Two-font setup:
+   - Base UI/text: Segoe UI
+   - Headings: Space Grotesk (loaded in public/index.html)
+*/
+
+@layer theme {
+  :root, :host {
+    --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /* Keep Tailwind's `font-mono` from introducing a 3rd font */
+    --font-mono: "Segoe UI", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --font-display: "Space Grotesk", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}
+
