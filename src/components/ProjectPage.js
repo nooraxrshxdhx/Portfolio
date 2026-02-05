@@ -34,12 +34,22 @@ export function ProjectPage() {
   const projects = Object.values(ProjectData);
   const project = projects.find((p) => String(p.id) === id);
 
-  const imageFiles = project?.files?.filter((file) => file.type === 'image') || [];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const mediaFiles = project?.files?.filter((file) => file.type === 'image' || file.type === 'video') || [];
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
-  const selectedFile = imageFiles.length > 0 
-    ? imageFiles[currentImageIndex]?.url 
-    : project?.image || null;
+  useEffect(() => {
+    setCurrentMediaIndex(0);
+  }, [project?.id]);
+
+  const normalizedMediaIndex =
+    mediaFiles.length > 0
+      ? ((currentMediaIndex % mediaFiles.length) + mediaFiles.length) % mediaFiles.length
+      : 0;
+  const selectedPreviewFile = mediaFiles[normalizedMediaIndex];
+  const selectedFile = selectedPreviewFile?.url || project?.image || null;
+  const previewLabel = selectedPreviewFile?.type ? `${selectedPreviewFile.type} preview` : 'Visual preview';
+  const previewCounterLabel =
+    mediaFiles.length > 0 ? ` ${normalizedMediaIndex + 1} of ${mediaFiles.length}` : '';
 
   const isCertificate = project?.category?.toLowerCase() === 'certification';
 
@@ -63,14 +73,14 @@ export function ProjectPage() {
     );
   }
 
-  const nextImage = () => {
-    if (imageFiles.length <= 1) return;
-    setCurrentImageIndex((prev) => (prev + 1) % imageFiles.length);
+  const nextMedia = () => {
+    if (mediaFiles.length <= 1) return;
+    setCurrentMediaIndex((prev) => prev + 1);
   };
 
-  const prevImage = () => {
-    if (imageFiles.length <= 1) return;
-    setCurrentImageIndex((prev) => (prev - 1 + imageFiles.length) % imageFiles.length);
+  const prevMedia = () => {
+    if (mediaFiles.length <= 1) return;
+    setCurrentMediaIndex((prev) => prev - 1);
   };
 
   const getFileIcon = (type) => {
@@ -88,12 +98,15 @@ export function ProjectPage() {
 
   const handleFileClick = (file) => {
     if (!file?.url) return;
-    
+
     if (file.type === 'document') {
       window.open(file.url, '_blank', 'noopener,noreferrer');
-    } else if (file.type === 'image') {
-      const index = imageFiles.findIndex((img) => img.url === file.url);
-      if (index >= 0) setCurrentImageIndex(index);
+      return;
+    }
+
+    if (file.type === 'image' || file.type === 'video') {
+      const index = mediaFiles.findIndex((media) => media.url === file.url);
+      if (index >= 0) setCurrentMediaIndex(index);
     }
   };
 
@@ -170,22 +183,22 @@ export function ProjectPage() {
                     <Globe className="w-4 h-4" />
                     {selectedFile ? selectedFile.split('/').pop() : 'Visual_Link.png'}
                   </h3>
-                  {imageFiles.length > 1 && (
+                  {mediaFiles.length > 1 && (
                     <div className="flex gap-2">
                       <button
-                        onClick={prevImage}
+                        onClick={prevMedia}
                         className="p-1 bg-slate-800/50 rounded hover:bg-cyan-950/50 transition-colors"
-                        aria-label="Previous image"
+                        aria-label="Previous asset"
                       >
                         <ChevronLeft className="w-5 h-5 text-cyan-400" />
                       </button>
                       <span className="px-2 py-1 text-xs text-cyan-300 font-mono">
-                        {currentImageIndex + 1} / {imageFiles.length}
+                        {normalizedMediaIndex + 1} / {mediaFiles.length}
                       </span>
                       <button
-                        onClick={nextImage}
+                        onClick={nextMedia}
                         className="p-1 bg-slate-800/50 rounded hover:bg-cyan-950/50 transition-colors"
-                        aria-label="Next image"
+                        aria-label="Next asset"
                       >
                         <ChevronRight className="w-5 h-5 text-cyan-400" />
                       </button>
@@ -207,7 +220,7 @@ export function ProjectPage() {
                       ) : isImage(selectedFile) ? (
                       <img
                         src={selectedFile}
-                        alt={`${project.title} screenshot ${currentImageIndex + 1} of ${imageFiles.length}`}
+                        alt={`${project.title} ${previewLabel}${previewCounterLabel}`}
                         className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                       />
                       ) : (
@@ -278,12 +291,7 @@ export function ProjectPage() {
                       color: #cbd5e1;
                       margin-bottom: 0.5rem;
                     }
-                    .prose blockquote {
-                      border-left: 4px solid #06b6d4;
-                      padding-left: 1rem;
-                      color: #94a3b8;
-                      font-style: italic;
-                    }
+
                   `}</style>
                   
                   {renderEssayContent(project.description)}
